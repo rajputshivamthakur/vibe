@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button";
-
 const Page = () => {
-  return (
-    <Button variant="new">Click me</Button>
-  )
+  return <div>Hello World!</div>;
 };
 
 export default Page;
