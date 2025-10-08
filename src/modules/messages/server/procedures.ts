@@ -7,7 +7,7 @@ export const messagesRouter = createTRPCRouter({
   getMany: baseProcedure
     .input(
       z.object({
-        projectId: z.string().min(1, { message: "Project ID is requires" }),
+        projectId: z.string().min(1, { message: "Project ID is required" }),
       })
     )
     .query(async ({ input }) => {
@@ -28,11 +28,11 @@ export const messagesRouter = createTRPCRouter({
   create: baseProcedure
     .input(
       z.object({
-        value: z 
+        value: z
           .string()
           .min(1, { message: "Value is required" })
           .max(10000, { message: "Value is too long" }),
-        projectId: z.string().min(1, { message: "Project ID is requires" }),
+        projectId: z.string().min(1, { message: "Project ID is required" }),
       })
     )
     .mutation(async ({ input }) => {
