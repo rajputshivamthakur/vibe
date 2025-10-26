@@ -49,7 +49,7 @@ export const ProjectHeader = ({ projectId }: Props) => {
           <DropdownMenuItem asChild>
             <Link href="/">
               <ChevronLeftIcon />
-              <span>Got to Dashboard</span>
+              <span>Go to Dashboard</span>
             </Link>
           </DropdownMenuItem>
 
