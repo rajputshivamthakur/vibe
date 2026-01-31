@@ -32,7 +32,7 @@ export const codeAgentFunction = inngest.createFunction(
       name: "code-agent",
       description: "An expert coding agent",
       system: PROMPT,
-      model: gemini({ model: "gemini-2.5-pro" }),
+      model: gemini({ model: "gemini-2.5-flash" }),
       tools: [
         createTool({
           name: "terminal",
@@ -57,7 +57,7 @@ export const codeAgentFunction = inngest.createFunction(
                 return result.stdout;
               } catch (e) {
                 console.error(
-                  `Command failed: 4{e} \nstdout: ${buffers.stdout} \nstderr: ${buffers.stderr}`
+                  `Command failed: 4{e} \nstdout: ${buffers.stdout} \nstderr: ${buffers.stderr}`,
                 );
                 return `Command failed: ${e}\n\nstdout: ${buffers.stdout}\n\nstderr: ${buffers.stderr}`;
               }
@@ -72,12 +72,12 @@ export const codeAgentFunction = inngest.createFunction(
               z.object({
                 path: z.string(),
                 content: z.string(),
-              })
+              }),
             ),
           }),
           handler: async (
             { files },
-            { step, network }: Tool.Options<AgentState>
+            { step, network }: Tool.Options<AgentState>,
           ) => {
             const newFiles = await step?.run(
               "createOrUpdateFiles",
@@ -93,7 +93,7 @@ export const codeAgentFunction = inngest.createFunction(
                 } catch (e) {
                   return "Error: " + e;
                 }
-              }
+              },
             );
             if (typeof newFiles === "object") {
               network.state.data.files = newFiles;
@@ -200,5 +200,5 @@ export const codeAgentFunction = inngest.createFunction(
       files: result.state.data.files,
       summary: result.state.data.summary,
     };
-  }
+  },
 );
