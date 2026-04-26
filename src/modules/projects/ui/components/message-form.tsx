@@ -38,7 +38,7 @@ export const MessageForm = ({ projectId }: Props) => {
       onSuccess: () => {
         form.reset();
         queryClient.invalidateQueries(
-          trpc.messages.getMany.queryOptions({ projectId: projectId })
+          trpc.messages.getMany.queryOptions({ projectId }),
         );
         // TODO: Invalidate usage status
       },
@@ -46,7 +46,7 @@ export const MessageForm = ({ projectId }: Props) => {
         // TODO: Redirect to pricing page is specific error
         toast.error(error.message);
       },
-    })
+    }),
   );
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -68,7 +68,7 @@ export const MessageForm = ({ projectId }: Props) => {
         className={cn(
           "relative border p-4 pt-1 rounded-xl bg-sidebar dark:bg-sidebar transition-all",
           isFocused && "shadow-xs",
-          showUsage && "rounded-t-none"
+          showUsage && "rounded-t-none",
         )}
       >
         <FormField
@@ -106,7 +106,7 @@ export const MessageForm = ({ projectId }: Props) => {
             disabled={isButtonDisabled}
             className={cn(
               "size-8 rounded-full",
-              isButtonDisabled && "bg-muted-foreground border"
+              isButtonDisabled && "bg-muted-foreground border",
             )}
           >
             {isPending ? (
