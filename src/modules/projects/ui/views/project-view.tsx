@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CodeIcon, CrownIcon, EyeIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
- import { FileExplorer } from "@/components/file-explorer";
+import { FileExplorer } from "@/components/file-explorer";
 
 interface Props {
   projectId: string;
@@ -45,7 +45,7 @@ export const ProjectView = ({ projectId }: Props) => {
           </Suspense>
         </ResizablePanel>
 
-        <ResizableHandle withHandle />
+        <ResizableHandle className="hover:bg-primary transition-colors" />
 
         <ResizablePanel defaultSize={65} minSize={50}>
           <Tabs
