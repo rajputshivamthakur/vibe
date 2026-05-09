@@ -1,6 +1,5 @@
 import { Sandbox } from "@e2b/code-interpreter";
 import {
-  openai,
   gemini,
   createAgent,
   createTool,
