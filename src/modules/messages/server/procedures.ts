@@ -54,7 +54,7 @@ export const messagesRouter = createTRPCRouter({
           message: "Project not found",
         });
       }
-      
+
       try {
         await consumeCredits();
       } catch (error) {
