@@ -10,10 +10,15 @@ import {
   createState,
 } from "@inngest/agent-kit";
 import { inngest } from "./client";
-import { getSandbox, lastAssistantTextMessageContent, parseAgentOutput } from "./utils";
+import {
+  getSandbox,
+  lastAssistantTextMessageContent,
+  parseAgentOutput,
+} from "./utils";
 import { z } from "zod";
 import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/prompt";
 import { prisma } from "@/lib/db";
+import { SANDBOX_TIMEOUT } from "./types";
 
 interface AgentState {
   summary: string;
@@ -28,6 +33,7 @@ export const codeAgentFunction = inngest.createFunction(
   async ({ event, step }) => {
     const sandboxId = await step.run("get-sandbox-id", async () => {
       const sandbox = await Sandbox.create("vibe-nextjs-test-1947");
+      await sandbox.setTimeout(SANDBOX_TIMEOUT);
       return sandbox.sandboxId;
     });
 
@@ -37,7 +43,8 @@ export const codeAgentFunction = inngest.createFunction(
         const formattedMessages: Message[] = [];
         const messages = await prisma.message.findMany({
           where: { projectId: event.data.projectId },
-          orderBy: { createdAt: "desc" }, // TODO: Change to "asc" if AI does not understand what is the latest messaege
+          orderBy: { createdAt: "desc" },
+          take: 5,
         });
 
         for (const message of messages) {
@@ -48,7 +55,7 @@ export const codeAgentFunction = inngest.createFunction(
           });
         }
 
-        return formattedMessages;
+        return formattedMessages.reverse();
       },
     );
 
