@@ -1,6 +1,6 @@
 import { Sandbox } from "@e2b/code-interpreter";
 import {
-  gemini,
+  openai,
   createAgent,
   createTool,
   createNetwork,
@@ -72,7 +72,7 @@ export const codeAgentFunction = inngest.createFunction(
       name: "code-agent",
       description: "An expert coding agent",
       system: PROMPT,
-      model: gemini({ model: "gemini-2.5-flash" }),
+      model: openai({ model: "gpt-5" }),
       tools: [
         createTool({
           name: "terminal",
@@ -200,14 +200,14 @@ export const codeAgentFunction = inngest.createFunction(
       name: "fragment-title-generator",
       description: "A fragment title genrator",
       system: FRAGMENT_TITLE_PROMPT,
-      model: gemini({ model: "gemini-2.5-flash" }), //TODO: Use a cheaper model here, since the prompt is very short and the response is expected to be very short as well
+      model: openai({ model: "gpt-4o" }),
     });
 
     const responseGenerator = createAgent({
       name: "response-generator",
       description: "A response generator",
       system: RESPONSE_PROMPT,
-      model: gemini({ model: "gemini-2.5-flash" }), // TODO: Use a cheaper model here, since the prompt is very short and the response is expected to be very short as well
+      model: openai({ model: "gpt-4o" }),
     });
 
     const { output: fragmentTitleOutput } = await fragmentTitleGenerator.run(
